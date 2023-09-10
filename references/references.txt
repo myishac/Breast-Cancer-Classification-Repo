@@ -1,0 +1,42 @@
+Data Dictionaries:
+
+The data contains 961 records of mammogram masses in 6 columns. These columns contain the following information:
+BI-RADS assessment: 1 to 5 (ordinal, non-predictive!)
+Age: patient's age in years (integer)
+Shape: mass shape: round=1 oval=2 lobular=3 irregular=4 (nominal)
+Margin: mass margin: circumscribed=1 microlobulated=2 obscured=3 ill-defined=4 spiculated=5 (nominal)
+Density: mass density high=1 iso=2 low=3 fat-containing=4 (ordinal)
+Severity: benign=0 or malignant=1 (binominal, target)
+The Breast Imaging Reporting and Data System (BI-RADS) assessment is assigned by a doctor after examination of the mammogram results. As this is based primarily on the shape, margin, and density attributes, it is considered non-predictive so it will not be used in the model. Instead, this can be used to compare against the model predictions to determine whether any of the models out-perform these assessments.
+Severity is the target variable and denotes whether a mass is assessed to be benign (non-cancerous) or malignant.
+
+
+
+Models:
+
+The following classification models will be fitted on the data and used to predict whether a mammographic mass is benign or malignant
+
+Logistic Regression: The logistic regression model determines the probability that a record belongs to a class based on a cut-off or threshold. If the probability exceeds this amount, the record will be labelled as "1" i.e. malignant. The threshold can be set to reduce the occurrence of false positives and false negatives.
+Decision Tree: A decision tree works by recursively dividing the inputs into decisions, where nodes represent features, and branches are the decisions made to divide the data. The leaves of the tree represent the outcome for each record. Decision tree models are very interpretable, but often suffer from overfitting. This can be overcome by pruning the tree, or by setting limits on the number of leaf nodes.
+KNN: The K-nearest neighbours approach groups individual observations into categories based on its proximity to other similar data records. This methodology is relatively simple to implement due to the small number of parameters but does not perform well in situations where data is high-dimensional as it tends to overfit.
+Random Forest: Random Forests combine multiple decision trees, each of which uses a random subset of features, and the results are aggregated to produce the outcome. Random Forest models help reduce overfitting but can be time-consuming to run. 
+SVM: Support Vector Machines categorize data by using kernels to map the data to a high-dimensional feature space. A separator between the categories is drawn as a hyperplane. They are memory-efficient, but do not work well on large datasets. 
+Neural Networks: Neural Networks are a form of artificial intelligence that use layers (input layer, output (or target) layer and a middle-hidden layer) that are connected by nodes to form a “network”. Due to the hidden layers, neural networks may be more time-consuming and are often difficult to explain. 
+
+
+
+Classes:
+
+Main.py: The main class makes instances for all the classes created and prints out the corresponding outputs. 
+Pre_processing.py: The Pre_processing class initializes the data by reading in the data file and checking the structure.  The class contains functions to read in the data, describe the data,  remove or replace any missing values. The output is a cleaned version of the data. 
+Build_Features.py: The Build_Features class initializes the data, training data, and test data. The class contains functions to perform Principal Components Analysis and any additional feature engineering. 
+Visualize.py: The Visualize class takes the cleaned mammogram data and performs Exploratory Data Analysis. This function looks at the variables in the data to determine how their values are distributed. This class also graphs the relationship between predictors and response variables to see how each of these predictors are related to the target variable as well as whether there are any collinearities among the predictors. 
+Model_Initializing.py: The Model_Initializing class initializes the final data set by splitting into  training and testing data. The class contains a function called split_data to perform this split, as well as a scaling function to scale the data. The class returns X_train_s, X_test_s, y_train and y_test which are used to train and test the various models. 
+LogisticClassifier.py: The LogisticClassifier class initializes a Logistic Regression with training data (X_train and y_train). The class also contains functions to fit and tune the model, call the predict function and find the training accuracy. 
+DecisionTreeModel.py: The DecisionTreeModel class initializes a Decision Tree with training data (X_train and y_train). The class also contains functions to fit and tune the model, as well as call the predict function, calculate metrics,  to find the training accuracy and plot the decision tree. 
+KNN.py: The KNN class initializes a K-nearest neighbours model with training data (X_train and y_train). The class also contains functions to fit and tune the model, call the predict and score function to find the training accuracy. 
+Random_Forest.py: The Random_Forest_Classifier class initializes a Random Forest model with the training data (X_train and y_train). This class also fits the model and tunes it based on specific parameters and predicts it based on the training data and outputs the training accuracy and classification report. 
+SVM.py: The SVM_Classifier class initializes a SVM model with the training data (X_train and y_train). This class also fits the model and tunes it based on specific parameters and predicts it based on the training data and outputs the training accuracy and classification report. 
+ANN.py: The ANN class initializes a MultiLayer Perceptor (Neural Network) model with training data (X_train and y_train). The class also contains functions to fit and tune the model, as well as call the predict and score functions to find the training accuracy. 
+Predict_Model.py: The Predict_Model class uses the test data (X_test and y_test) and predicts the outcomes using the fitted models. It contains functions to create the confusion matrix as well as the classification report based on the test data. These reports are printed for each of the models. 
+ROC_Curve.py: The ROC_Curve class takes the test data (X_test and y_test) and uses for loops to get the roc_curve and the auc_score for each model created and plots them in a single graph. 
